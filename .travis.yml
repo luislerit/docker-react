@@ -13,4 +13,18 @@ before_install:
 script:
   - docker run -e CI=true jmllerit/docker-react npm run test -- --coverage
 
+# Configuration to deploy to AWS
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "Docker"
+  env: "Docker-env"
+  # S3 bucket, hard drive on AWS to store zip file application
+  bucket_name: "elasticbeanstalk-us-east-2-130186549773"
+  bucket_path: "Docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+
 language: generic
