@@ -1,0 +1,16 @@
+# Super user
+sudo: required
+# Install Docker
+services:
+  - docker
+
+# Command to build the container
+before_install:
+  - docker build -t jmllerit/docker-react -f Dockerfile.dev .
+
+# Commands that needs to be executed to run the test suite
+# Exits immediately
+script:
+  - docker run -e CI=true jmllerit/docker-react npm run test -- --coverage
+
+language: generic
